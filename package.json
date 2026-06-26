@@ -1,0 +1,19 @@
+{
+  "name": "flaglint-dev",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@astrojs/starlight": "^0.39.2",
+    "astro": "^6.3.8",
+    "starlight-blog": "^0.26.1",
+    "tsx": "^4.19.0",
+    "typescript": "^5.5.4"
+  }
+}
