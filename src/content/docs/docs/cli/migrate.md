@@ -1,7 +1,7 @@
 ---
 title: flaglint migrate
 description: Generate migration plans, preview diffs, and apply guarded OpenFeature rewrites.
-lastUpdated: 2026-05-28
+lastUpdated: 2026-07-01
 ---
 
 `flaglint migrate` analyzes supported LaunchDarkly Node.js server SDK evaluation calls and separates safe call-site rewrites from manual-review work.
@@ -30,6 +30,8 @@ npx flaglint migrate ./src --apply
 | `--output <file>` | Write the default migration report to a file. |
 | `--config <path>` | Use an explicit config file. |
 | `--exclude-tests` | Exclude test/spec files and test directories. |
+| `--quiet` / `-q` | Suppress all progress output. Only errors appear on stderr. Useful in scripts and CI pipelines where only the exit code matters. |
+| `--verbose` | Show per-file scan progress (updates on every file instead of every 50). |
 
 ## Dry-Run Output
 

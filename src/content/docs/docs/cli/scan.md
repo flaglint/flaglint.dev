@@ -1,7 +1,7 @@
 ---
 title: flaglint scan
 description: Inventory supported LaunchDarkly Node.js server SDK evaluation calls.
-lastUpdated: 2026-05-28
+lastUpdated: 2026-07-01
 ---
 
 `flaglint scan` performs AST-based inventory of supported direct LaunchDarkly Node.js server SDK calls.
@@ -23,6 +23,8 @@ npx flaglint scan ./src
 | `--output <file>` | Write report to a file. |
 | `--config <path>` | Use an explicit config file. |
 | `--exclude-tests` | Exclude test/spec files and test directories. |
+| `--quiet` / `-q` | Suppress all progress output. Only errors appear on stderr. Useful in scripts and CI pipelines where only the exit code matters. |
+| `--verbose` | Show per-file scan progress (updates on every file instead of every 50). |
 
 ## Example Output
 

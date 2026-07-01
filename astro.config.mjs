@@ -80,6 +80,7 @@ export default defineConfig({
           label: "CLI",
           collapsed: true,
           items: [
+            { label: "init", slug: "docs/cli/init" },
             { label: "audit", slug: "docs/cli/audit" },
             { label: "Effort Estimation", slug: "docs/cli/effort-estimate" },
             { label: "scan", slug: "docs/cli/scan" },
@@ -88,6 +89,7 @@ export default defineConfig({
             { label: "Configuration", slug: "docs/cli/configuration" },
             { label: "Report Formats", slug: "docs/cli/report-formats" },
             { label: "Exit Codes", slug: "docs/cli/exit-codes" },
+            { label: "completion", slug: "docs/cli/completion" },
           ],
         },
         {

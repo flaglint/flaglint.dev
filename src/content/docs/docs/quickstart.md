@@ -1,7 +1,7 @@
 ---
 title: Quickstart
 description: Run your first FlagLint audit, inspect inventory, preview migration, and enforce the boundary in CI.
-lastUpdated: 2026-05-28
+lastUpdated: 2026-07-01
 ---
 
 ## Requirements
@@ -10,6 +10,18 @@ lastUpdated: 2026-05-28
 - A JavaScript or TypeScript project using LaunchDarkly Node.js server-side SDK evaluation calls from `@launchdarkly/node-server-sdk` or `launchdarkly-node-server-sdk`.
 
 Browser SDKs, React SDKs, non-Node SDKs, and non-LaunchDarkly providers are outside current detection coverage.
+
+## 0. Scaffold a Config (Optional)
+
+If you don't have a `flaglint.config.json` yet, scaffold one with all fields set to their defaults:
+
+```bash
+npx flaglint init
+```
+
+This writes `flaglint.config.json` to the current directory and prints a short explanation of every field to stderr. You can skip this step — FlagLint works with sensible defaults out of the box — but it's useful when you need to customize `include`/`exclude` patterns or configure `wrappers`.
+
+See the [`flaglint init` reference](/docs/cli/init/) and [Configuration reference](/docs/cli/configuration/) for details.
 
 ## 1. Run an Audit
 

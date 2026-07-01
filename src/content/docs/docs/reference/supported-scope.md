@@ -1,7 +1,7 @@
 ---
 title: Supported Scope
 description: What FlagLint detects, migrates, reports for manual review, and excludes.
-lastUpdated: 2026-05-28
+lastUpdated: 2026-07-01
 ---
 
 FlagLint currently supports LaunchDarkly Node.js server-side SDK evaluation calls in JavaScript and TypeScript from:
@@ -9,7 +9,7 @@ FlagLint currently supports LaunchDarkly Node.js server-side SDK evaluation call
 - `@launchdarkly/node-server-sdk`
 - legacy `launchdarkly-node-server-sdk`
 
-Browser SDKs, React SDKs, non-Node SDKs, and non-LaunchDarkly providers are outside current detection coverage and do not appear in reports.
+React SDK hooks, HOC, and provider are detected and reported for manual review. Browser SDKs, non-Node SDKs, and non-LaunchDarkly providers are outside current detection coverage and do not appear in reports.
 
 ## API Coverage
 
@@ -27,7 +27,9 @@ Browser SDKs, React SDKs, non-Node SDKs, and non-LaunchDarkly providers are outs
 | Configured wrappers | Yes | No | Yes | No |
 | Ambiguous OpenFeature client binding | Yes | No | Yes | No |
 | Browser SDKs | No | No | No | Yes |
-| React SDKs/hooks/HOCs | No | No | No | Yes |
+| React SDK hooks (`useFlags`, `useLDClient`, `useVariation`) | Yes | No | Yes | No |
+| React SDK HOC (`withLDConsumer`) | Yes | No | Yes | No |
+| React SDK provider (`LDProvider`, `asyncWithLDProvider`) | Yes | No | Yes | No |
 | Go, Java, Python, or other SDKs | No | No | No | Yes |
 | Non-LaunchDarkly providers | No | No | No | Yes |
 
@@ -51,6 +53,27 @@ const client = ldInit("sdk-key");
 ```
 
 Unrelated functions named `init`, `ldInit`, `client`, `feature`, `flag`, or similar do not establish LaunchDarkly provenance.
+
+## React SDK Detection
+
+React SDK hooks, HOC, and provider are detected via verified import chains from `launchdarkly-react-client-sdk`:
+
+```ts
+import { useFlags, useLDClient } from "launchdarkly-react-client-sdk";
+// useFlags() and useLDClient() calls are reported for manual review
+```
+
+```ts
+import { withLDConsumer } from "launchdarkly-react-client-sdk";
+// withLDConsumer()(Component) is reported for manual review
+```
+
+```ts
+import { LDProvider, asyncWithLDProvider } from "launchdarkly-react-client-sdk";
+// Provider usage is reported for manual review
+```
+
+React SDK patterns are reported for manual review and are not auto-migrated. They fall outside the current `flaglint migrate --apply` scope because they require browser/React-specific OpenFeature provider setup that cannot be inferred statically.
 
 ## Feedback
 

@@ -1,7 +1,7 @@
 ---
 title: flaglint validate
 description: Enforce no-direct-LaunchDarkly policy, baseline-aware CI enforcement, and SARIF findings.
-lastUpdated: 2026-06-22
+lastUpdated: 2026-07-01
 ---
 
 `flaglint validate` checks whether source files comply with migration policy.
@@ -18,6 +18,8 @@ lastUpdated: 2026-06-22
 | `--config <path>` | Use an explicit config file. |
 | `--baseline <file>` | Baseline file for comparing against known debt. |
 | `--fail-on-new` | Exit 1 if any findings are not in the baseline. |
+| `--quiet` / `-q` | Suppress all progress output. Only errors appear on stderr. Useful in scripts and CI pipelines where only the exit code matters. |
+| `--verbose` | Show per-file scan progress (updates on every file instead of every 50). |
 
 ## Blocking Policy Command
 

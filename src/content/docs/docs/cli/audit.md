@@ -1,7 +1,7 @@
 ---
 title: flaglint audit
 description: Generate a local flag debt audit report with risk scoring. No API key required.
-lastUpdated: 2026-06-07
+lastUpdated: 2026-07-01
 ---
 
 `flaglint audit` scans your source code and classifies every detected LaunchDarkly Node.js SDK
@@ -30,6 +30,8 @@ npx flaglint audit ./src
 | `--effort-estimate` | Add a directional migration-effort estimate to audit output. |
 | `--hourly-rate <number>` | Add an optional engineering-cost range using a user-supplied hourly rate. Valid only with `--effort-estimate`. |
 | `--write-baseline <file>` | Write current finding fingerprints to a baseline file for use with `validate --baseline --fail-on-new`. |
+| `--quiet` / `-q` | Suppress all progress output. Only errors appear on stderr. Useful in scripts and CI pipelines where only the exit code matters. |
+| `--verbose` | Show per-file scan progress (updates on every file instead of every 50). |
 
 ## Risk Levels
 
