@@ -6,7 +6,7 @@ lastUpdated: 2026-06-22
 
 This guide walks through every step of migrating direct LaunchDarkly Node.js SDK calls to OpenFeature using FlagLint — from the initial audit to enforcing the boundary in CI.
 
-*Verified with FlagLint v1.0.0 · Node.js · OpenFeature · LaunchDarkly*
+*Verified with FlagLint v1.1.0 · Node.js · OpenFeature · LaunchDarkly*
 
 ---
 
