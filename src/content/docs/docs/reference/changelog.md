@@ -1,11 +1,29 @@
 ---
 title: Changelog
 description: Recent FlagLint releases and what changed.
-lastUpdated: 2026-06-22
+lastUpdated: 2026-07-01
 tableOfContents: false
 ---
 
 import { LinkCard } from '@astrojs/starlight/components';
+
+## [1.1.0] — 2026-07-01
+
+### Added
+
+- **React SDK import-verified detection** — hooks (`useFlags`, `useLDClient`, `useVariation`), HOC (`withLDConsumer`), and provider (`LDProvider`, `asyncWithLDProvider`) are now detected via verified import chains from `launchdarkly-react-client-sdk`. Previously these patterns were outside detection scope entirely.
+- **Wrapper detection v2 — object form** — `wrappers` config now accepts `{ import, function, flagKeyArgument }` objects that match only when the function is imported from the specified package. Prevents false positives from unrelated functions with the same name.
+- **`flaglint init`** — new command that scaffolds `flaglint.config.json` with all fields at their defaults. Warns if a higher-precedence config file would shadow the new file. Exits `2` if the file already exists without `--force`.
+- **`flaglint completion`** — new command that outputs shell completion scripts for bash, zsh, and fish. Tab-completes subcommands, flags, and flag values.
+- **`--quiet` / `--verbose` global flags** — `--quiet` (`-q`) suppresses all progress output; only errors appear on stderr. Useful in scripts and CI pipelines where only the exit code matters. `--verbose` lowers the spinner update threshold for more detailed progress on large codebases.
+- **GitHub Action `version` input** — the `flaglint/flaglint` composite action now accepts a `version` input for pinning to a specific release instead of always using `@latest`.
+
+### Fixed
+
+- **Provider validation** — the `provider` config field now validates the supplied value. Unsupported providers exit `2` with a clear error message. Only `launchdarkly` is currently supported.
+- **Bootstrap pattern matching** — the `--bootstrap-exclude` glob matcher now uses `micromatch` instead of a hand-rolled glob converter. Patterns that previously failed to match edge cases (e.g. complex brace expansions) now work correctly.
+
+---
 
 ## [1.0.0] — 2026-06-22
 
