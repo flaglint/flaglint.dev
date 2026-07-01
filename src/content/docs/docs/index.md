@@ -58,10 +58,10 @@ No API key. No source upload. Runs locally against your checkout. LaunchDarkly s
 - It does not replace LaunchDarkly. LaunchDarkly remains the provider.
 - It does not generate provider/bootstrap files automatically.
 - It does not query LaunchDarkly for flag age, owner, evaluation history, environment configuration, or production usage.
-- It does not detect browser SDKs, React SDKs, non-Node SDKs, or non-LaunchDarkly providers.
+- It does not detect browser SDKs (`launchdarkly-js-client-sdk`), non-Node SDKs, or non-LaunchDarkly providers. React SDK hooks, HOC, and provider are detected for manual review but not auto-migrated.
 
 ## Feedback
 
-- [Edit this page on GitHub](https://github.com/flaglint/flaglint/edit/main/docs-src/content/docs/docs/index.md)
+- [Edit this page on GitHub](https://github.com/flaglint/flaglint.dev/edit/main/src/content/docs/docs/index.md)
 - [Report an unsupported pattern](https://github.com/flaglint/flaglint/issues/new?template=unsupported_pattern.yml)
 - Next: [Quickstart](/docs/quickstart/)

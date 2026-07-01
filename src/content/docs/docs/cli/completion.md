@@ -94,3 +94,4 @@ flaglint completion fish > ~/.config/fish/completions/flaglint.fish
 
 - [Edit this page on GitHub](https://github.com/flaglint/flaglint.dev/edit/main/src/content/docs/docs/cli/completion.md)
 - [Report an unsupported pattern](https://github.com/flaglint/flaglint/issues/new?template=unsupported_pattern.yml)
+- Next: [GitHub Actions](/docs/integrations/github-actions/)

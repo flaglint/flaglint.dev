@@ -47,12 +47,18 @@ Generated from `examples/enterprise-checkout-service/src`:
 - Line 67: `checkout-currency` (stringVariation)
 ```
 
-## Exit Behavior
+## Exit Codes
 
-`scan` exits `1` only when configured review signals mark non-dynamic, non-bulk flags as stale candidates. A one-file flag is not stale by default because `minFileCount` defaults to `0`.
+`scan` is an inventory command — it never exits `1` due to findings. Use `validate` for CI enforcement.
+
+| Code | Meaning |
+| --- | --- |
+| `0` | Scan completed. |
+| `2` | Invalid input — bad `--format` value, directory not found, or invalid config. |
+| `130` | Interrupted (Ctrl+C / SIGINT). |
 
 ## Feedback
 
-- [Edit this page on GitHub](https://github.com/flaglint/flaglint/edit/main/docs-src/content/docs/docs/cli/scan.md)
+- [Edit this page on GitHub](https://github.com/flaglint/flaglint.dev/edit/main/src/content/docs/docs/cli/scan.md)
 - [Report an unsupported pattern](https://github.com/flaglint/flaglint/issues/new?template=unsupported_pattern.yml)
 - Next: [migrate CLI](/docs/cli/migrate/)

@@ -8,8 +8,8 @@ FlagLint is intentionally narrow.
 
 ## Outside Detection Coverage
 
-- Browser SDKs.
-- React SDKs, hooks, and HOCs.
+- Browser SDKs (`launchdarkly-js-client-sdk`).
+- React SDK patterns (hooks, HOC, provider) are detected for manual review but are outside auto-migration scope — the migrator only transforms Node server SDK calls.
 - Non-Node SDKs.
 - Non-LaunchDarkly providers.
 - Runtime-only flag key construction that cannot be resolved statically.
@@ -24,6 +24,6 @@ FlagLint does not insert provider setup files or remove LaunchDarkly dependencie
 
 ## Feedback
 
-- [Edit this page on GitHub](https://github.com/flaglint/flaglint/edit/main/docs-src/content/docs/docs/reference/limitations.md)
+- [Edit this page on GitHub](https://github.com/flaglint/flaglint.dev/edit/main/src/content/docs/docs/reference/limitations.md)
 - [Report an unsupported pattern](https://github.com/flaglint/flaglint/issues/new?template=unsupported_pattern.yml)
 - Next: [Security](/docs/reference/security/)

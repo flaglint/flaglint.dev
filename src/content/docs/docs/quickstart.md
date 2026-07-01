@@ -9,14 +9,14 @@ lastUpdated: 2026-07-01
 - Node.js 20 or newer.
 - A JavaScript or TypeScript project using LaunchDarkly Node.js server-side SDK evaluation calls from `@launchdarkly/node-server-sdk` or `launchdarkly-node-server-sdk`.
 
-Browser SDKs, React SDKs, non-Node SDKs, and non-LaunchDarkly providers are outside current detection coverage.
+Browser SDKs (`launchdarkly-js-client-sdk`), non-Node SDKs, and non-LaunchDarkly providers are outside auto-migration coverage. React SDK hooks, HOC, and provider are detected for manual review.
 
 ## 0. Scaffold a Config (Optional)
 
 If you don't have a `flaglint.config.json` yet, scaffold one with all fields set to their defaults:
 
 ```bash
-npx flaglint init
+npx flaglint@latest init
 ```
 
 This writes `flaglint.config.json` to the current directory and prints a short explanation of every field to stderr. You can skip this step — FlagLint works with sensible defaults out of the box — but it's useful when you need to customize `include`/`exclude` patterns or configure `wrappers`.
@@ -26,7 +26,7 @@ See the [`flaglint init` reference](/docs/cli/init/) and [Configuration referenc
 ## 1. Run an Audit
 
 ```bash
-npx flaglint audit ./src
+npx flaglint@latest audit ./src
 ```
 
 The enterprise checkout demo in this repository contains this real TypeScript call site:
@@ -72,7 +72,7 @@ The audit gives engineers a risk-ranked overview before any migration work:
 Use `scan` when you need file-level structured inventory for automation or deeper review:
 
 ```bash
-npx flaglint scan ./src
+npx flaglint@latest scan ./src
 ```
 
 Generated from the same demo:
@@ -99,7 +99,7 @@ The Markdown report inventory includes the detected static and manual-review cal
 ## 3. Preview Migration
 
 ```bash frame="none"
-npx flaglint migrate ./src --dry-run
+npx flaglint@latest migrate ./src --dry-run
 ```
 
 Generated from the same demo:
@@ -159,7 +159,7 @@ Next: [add the LaunchDarkly OpenFeature provider](/docs/tutorials/add-openfeatur
 After provider setup and review, apply proven rewrites on a branch:
 
 ```bash frame="none"
-npx flaglint migrate ./src --apply
+npx flaglint@latest migrate ./src --apply
 ```
 
 ## 7. Enforce in CI
@@ -167,7 +167,7 @@ npx flaglint migrate ./src --apply
 After migration, block new direct LaunchDarkly evaluation calls:
 
 ```bash frame="none"
-npx flaglint validate ./src --no-direct-launchdarkly
+npx flaglint@latest validate ./src --no-direct-launchdarkly
 ```
 
 Completed-state demo output:
@@ -182,4 +182,4 @@ Completed-state demo output:
 
 **Further reading:** [LaunchDarkly-to-OpenFeature Node.js migration guide](/docs/guides/launchdarkly-to-openfeature-nodejs/) · [Why migrations break in production](/blog/launchdarkly-openfeature-argument-order-bug/) · [Vendor-neutral abstraction without a full migration](/blog/after-launchdarkly-outage-vendor-neutral-abstraction/)
 
-[Edit this page](https://github.com/flaglint/flaglint/edit/main/docs-src/content/docs/docs/quickstart.md) · [Report an unsupported pattern](https://github.com/flaglint/flaglint/issues/new?template=unsupported_pattern.yml) · Next: [Why FlagLint](/docs/why-flaglint/)
+[Edit this page](https://github.com/flaglint/flaglint.dev/edit/main/src/content/docs/docs/quickstart.md) · [Report an unsupported pattern](https://github.com/flaglint/flaglint/issues/new?template=unsupported_pattern.yml) · Next: [Why FlagLint](/docs/why-flaglint/)

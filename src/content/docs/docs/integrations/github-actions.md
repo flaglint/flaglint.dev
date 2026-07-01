@@ -26,6 +26,19 @@ This runs `flaglint validate ./src --no-direct-launchdarkly` and fails the job i
 | `command` | `validate` | FlagLint command: `validate`, `scan`, or `audit` |
 | `extra-args` | `""` | Additional CLI flags passed verbatim to flaglint |
 | `node-version` | `'20'` | Node.js version used by `actions/setup-node@v4` |
+| `version` | `''` (latest) | Pin to a specific FlagLint release, e.g. `'1.1.0'`. Defaults to `@latest` when empty. |
+
+## Example: Pinning to a Specific Version
+
+```yaml
+- uses: flaglint/flaglint-js@v1
+  with:
+    version: '1.1.0'
+    command: validate
+    directory: ./src
+```
+
+Use `version` when you need reproducible CI output regardless of new FlagLint releases.
 
 ## Example: Blocking Enforcement
 
@@ -89,7 +102,7 @@ flaglint.direct-launchdarkly
 
 ## Feedback
 
-- [Edit this page on GitHub](https://github.com/flaglint/flaglint/edit/main/docs-src/content/docs/docs/integrations/github-actions.md)
+- [Edit this page on GitHub](https://github.com/flaglint/flaglint.dev/edit/main/src/content/docs/docs/integrations/github-actions.md)
 - [Report an unsupported pattern](https://github.com/flaglint/flaglint/issues/new?template=unsupported_pattern.yml)
 - See also: [validate command](/docs/cli/validate/)
 - Next: [OpenTelemetry](/docs/integrations/opentelemetry/)
