@@ -78,6 +78,6 @@ Generated output:
 
 ## Feedback
 
-- [Edit this page on GitHub](https://github.com/flaglint/flaglint/edit/main/docs-src/content/docs/docs/tutorials/migrate-a-node-service.md)
+- [Edit this page on GitHub](https://github.com/flaglint/flaglint.dev/edit/main/src/content/docs/docs/tutorials/migrate-a-node-service.md)
 - [Report an unsupported pattern](https://github.com/flaglint/flaglint/issues/new?template=unsupported_pattern.yml)
 - Next: [Add OpenFeature Provider](/docs/tutorials/add-openfeature-provider/)

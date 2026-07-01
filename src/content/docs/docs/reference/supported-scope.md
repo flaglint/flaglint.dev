@@ -77,6 +77,6 @@ React SDK patterns are reported for manual review and are not auto-migrated. The
 
 ## Feedback
 
-- [Edit this page on GitHub](https://github.com/flaglint/flaglint/edit/main/docs-src/content/docs/docs/reference/supported-scope.md)
+- [Edit this page on GitHub](https://github.com/flaglint/flaglint.dev/edit/main/src/content/docs/docs/reference/supported-scope.md)
 - [Report an unsupported pattern](https://github.com/flaglint/flaglint/issues/new?template=unsupported_pattern.yml)
 - Next: [Limitations](/docs/reference/limitations/)

@@ -40,40 +40,13 @@ export default defineConfig({
       credits: false,
       sidebar: [
         {
-          label: "Blog",
-          items: [
-            { label: "All posts", link: "/blog/" },
-          ],
-        },
-        {
           label: "Start Here",
-          collapsed: true,
+          collapsed: false,
           items: [
             { label: "Overview", slug: "docs" },
             { label: "Quickstart", slug: "docs/quickstart" },
             { label: "Why FlagLint", slug: "docs/why-flaglint" },
             { label: "Enterprise Demo", slug: "docs/enterprise-demo" },
-          ],
-        },
-        {
-          label: "Tutorials",
-          collapsed: true,
-          items: [
-            { label: "Migrate a Node Service", slug: "docs/tutorials/migrate-a-node-service" },
-            { label: "Add OpenFeature Provider", slug: "docs/tutorials/add-openfeature-provider" },
-            { label: "Enforce in GitHub Actions", slug: "docs/tutorials/enforce-in-github-actions" },
-            { label: "Shared Client Architecture", slug: "docs/tutorials/shared-client-architecture" },
-          ],
-        },
-        {
-          label: "Concepts",
-          collapsed: true,
-          items: [
-            { label: "How FlagLint Works", slug: "docs/concepts/how-flaglint-works" },
-            { label: "Safety Model", slug: "docs/concepts/safety-model" },
-            { label: "OpenFeature Boundary", slug: "docs/concepts/openfeature-boundary" },
-            { label: "Source-Level Debt Signals", slug: "docs/concepts/source-level-debt-signals" },
-            { label: "Migration Readiness", slug: "docs/concepts/migration-readiness" },
           ],
         },
         {
@@ -90,6 +63,27 @@ export default defineConfig({
             { label: "Report Formats", slug: "docs/cli/report-formats" },
             { label: "Exit Codes", slug: "docs/cli/exit-codes" },
             { label: "completion", slug: "docs/cli/completion" },
+          ],
+        },
+        {
+          label: "Concepts",
+          collapsed: true,
+          items: [
+            { label: "How FlagLint Works", slug: "docs/concepts/how-flaglint-works" },
+            { label: "Safety Model", slug: "docs/concepts/safety-model" },
+            { label: "OpenFeature Boundary", slug: "docs/concepts/openfeature-boundary" },
+            { label: "Source-Level Debt Signals", slug: "docs/concepts/source-level-debt-signals" },
+            { label: "Migration Readiness", slug: "docs/concepts/migration-readiness" },
+          ],
+        },
+        {
+          label: "Tutorials",
+          collapsed: true,
+          items: [
+            { label: "Migrate a Node Service", slug: "docs/tutorials/migrate-a-node-service" },
+            { label: "Add OpenFeature Provider", slug: "docs/tutorials/add-openfeature-provider" },
+            { label: "Enforce in GitHub Actions", slug: "docs/tutorials/enforce-in-github-actions" },
+            { label: "Shared Client Architecture", slug: "docs/tutorials/shared-client-architecture" },
           ],
         },
         {
@@ -129,6 +123,12 @@ export default defineConfig({
             { label: "Product Contract", slug: "docs/product-contract" },
             { label: "Security", slug: "docs/trust/security" },
             { label: "Privacy", slug: "docs/trust/privacy" },
+          ],
+        },
+        {
+          label: "Blog",
+          items: [
+            { label: "All posts", link: "/blog/" },
           ],
         },
       ],

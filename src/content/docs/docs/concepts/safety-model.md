@@ -108,6 +108,6 @@ Generated diffs are reviewable migration assistance, not a guarantee of producti
 
 ## Feedback
 
-- [Edit this page on GitHub](https://github.com/flaglint/flaglint/edit/main/docs-src/content/docs/docs/concepts/safety-model.md)
+- [Edit this page on GitHub](https://github.com/flaglint/flaglint.dev/edit/main/src/content/docs/docs/concepts/safety-model.md)
 - [Report an unsupported pattern](https://github.com/flaglint/flaglint/issues/new?template=unsupported_pattern.yml)
 - Next: [OpenFeature Boundary](/docs/concepts/openfeature-boundary/)
