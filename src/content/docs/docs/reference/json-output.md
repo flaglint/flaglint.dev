@@ -174,7 +174,7 @@ object that should be committed to source control alongside your code.
 {
   "version": 1,
   "createdAt": "2026-06-22T14:30:00.000Z",
-  "flaglintVersion": "1.0.0",
+  "flaglintVersion": "1.1.0",
   "fingerprints": [
     "launchdarkly:boolVariation:checkout-v2:src/checkout/service.ts",
     "launchdarkly:stringVariation:payment-provider:src/payments/processor.ts"
