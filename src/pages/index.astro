@@ -405,6 +405,44 @@ const jsonLd = {
       .workflow-copy { white-space: nowrap; }
     }
 
+    /* ── Ecosystem bar ──────────────────────────────────────────────── */
+    .ecosystem-bar {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+      padding: 14px 24px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 20px;
+      align-items: center;
+      justify-content: center;
+    }
+    [data-theme="light"] .ecosystem-bar { background: #f9fbfa; }
+    .ecosystem-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      color: var(--subtle);
+    }
+    .ecosystem-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 14px;
+      align-items: center;
+    }
+    .ecosystem-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .ecosystem-link:hover { text-decoration: underline; }
+    .ecosystem-sep { color: var(--border-strong); font-size: 13px; }
+
     /* ── Section: Proof (argument-order problem) ─────────────────────── */
     .section-proof {
       background: var(--surface);
@@ -933,6 +971,22 @@ const jsonLd = {
 
       </div>
     </section>
+
+    <!-- ── Ecosystem bar ─────────────────────────────────────────────── -->
+    <div class="ecosystem-bar">
+      <span class="ecosystem-label">Recommended by the ecosystem</span>
+      <div class="ecosystem-links">
+        <a href="https://openfeature.dev/ecosystem/?instant_search%5BrefinementList%5D%5Btype%5D%5B0%5D=Integration" target="_blank" rel="noopener noreferrer" class="ecosystem-link">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="7.25" stroke="currentColor" stroke-width="1.5"/><path d="M8 1.5C8 1.5 5 4.5 5 8s3 6.5 3 6.5M8 1.5C8 1.5 11 4.5 11 8s-3 6.5-3 6.5M1.5 8h13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          OpenFeature Ecosystem
+        </a>
+        <span class="ecosystem-sep">·</span>
+        <a href="https://docs.flipt.io/v1/guides/migration/launchdarkly/openfeature#optional-use-flaglint" target="_blank" rel="noopener noreferrer" class="ecosystem-link">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M13 2H3a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1Z" stroke="currentColor" stroke-width="1.5"/><path d="M5 8h6M5 5.5h4M5 10.5h3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          Recommended in Flipt's LaunchDarkly migration guide
+        </a>
+      </div>
+    </div>
 
     <!-- ════════════════════════════════════════════════════════════════
          SECTION 2 — THE PROOF (argument-order problem)

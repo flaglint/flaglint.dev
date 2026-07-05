@@ -280,6 +280,16 @@ Enable strict enforcement only after all direct LaunchDarkly calls are resolved.
 
 ---
 
+## Switching to Flipt
+
+If you're migrating to **Flipt** as your flag evaluation backend (rather than staying on LaunchDarkly through OpenFeature), Flipt's official documentation includes a dedicated guide for this migration — and recommends FlagLint as the tool for the codebase analysis step:
+
+**[Migrating from LaunchDarkly SDK to OpenFeature SDK → Flipt docs](https://docs.flipt.io/v1/guides/migration/launchdarkly/openfeature#optional-use-flaglint)**
+
+Use FlagLint to audit and preview call-site rewrites, then follow Flipt's guide to wire up the Flipt OpenFeature provider.
+
+---
+
 ## Get started
 
 Run the audit command to see where you stand. FlagLint runs entirely locally — your source code does not leave your machine.
