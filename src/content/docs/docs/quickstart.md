@@ -4,10 +4,24 @@ description: Run your first FlagLint audit, inspect inventory, preview migration
 lastUpdated: 2026-07-01
 ---
 
+## Installation
+
+**npm / npx**
+```bash
+npx flaglint@latest audit       # run without installing
+npm install -g flaglint         # install globally
+```
+
+**Homebrew (macOS / Linux — no Node.js required)**
+```bash
+brew tap flaglint/tap
+brew install flaglint
+```
+
 ## Requirements
 
-- Node.js 20 or newer.
 - A JavaScript or TypeScript project using LaunchDarkly Node.js server-side SDK evaluation calls from `@launchdarkly/node-server-sdk` or `launchdarkly-node-server-sdk`.
+- Node.js 20+ is only required for the npm install path. The Homebrew install is self-contained.
 
 Browser SDKs (`launchdarkly-js-client-sdk`), non-Node SDKs, and non-LaunchDarkly providers are outside auto-migration coverage. React SDK hooks, HOC, and provider are detected for manual review.
 
