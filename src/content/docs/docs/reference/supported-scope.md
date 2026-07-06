@@ -1,8 +1,10 @@
 ---
 title: Supported Scope
 description: What FlagLint detects, migrates, reports for manual review, and excludes.
-lastUpdated: 2026-07-01
+lastUpdated: 2026-07-06
 ---
+
+This page covers **flaglint-js**, the JavaScript/TypeScript CLI. For the Go CLI's supported scope, see [flaglint-go: Supported Scope](/docs/go/reference/supported-scope/).
 
 FlagLint currently supports LaunchDarkly Node.js server-side SDK evaluation calls in JavaScript and TypeScript from:
 
@@ -30,7 +32,8 @@ React SDK hooks, HOC, and provider are detected and reported for manual review. 
 | React SDK hooks (`useFlags`, `useLDClient`, `useVariation`) | Yes | No | Yes | No |
 | React SDK HOC (`withLDConsumer`) | Yes | No | Yes | No |
 | React SDK provider (`LDProvider`, `asyncWithLDProvider`) | Yes | No | Yes | No |
-| Go, Java, Python, or other SDKs | No | No | No | Yes |
+| Go SDK | Handled by the separate [flaglint-go](/docs/go/) CLI | — | — | — |
+| Java, Python, or other SDKs | No | No | No | Yes |
 | Non-LaunchDarkly providers | No | No | No | Yes |
 
 ## Supported Import Provenance
