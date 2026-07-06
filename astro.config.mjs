@@ -126,6 +126,7 @@ export default defineConfig({
             { label: "audit", slug: "docs/go/cli/audit" },
             { label: "validate", slug: "docs/go/cli/validate" },
             { label: "Identity Model", slug: "docs/go/concepts/identity-model" },
+            { label: "Enforce in CI", slug: "docs/go/guides/enforce-in-ci" },
             { label: "Supported Scope", slug: "docs/go/reference/supported-scope" },
             { label: "Limitations", slug: "docs/go/reference/limitations" },
           ],
