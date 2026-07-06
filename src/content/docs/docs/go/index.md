@@ -31,7 +31,8 @@ flaglint-go is an early-access, separate binary — not a Go mode bolted onto th
 | `audit` — risk-ranked report + readiness score | ✅ | ✅ |
 | `validate` — CI policy gate | ✅ | ✅ |
 | `migrate` — automated OpenFeature rewrites | ✅ | ❌ not yet |
-| `init` / `completion` | ✅ | ❌ not yet |
+| `init` — scaffold a config file | ✅ | ❌ not yet |
+| `completion` — shell autocompletion scripts | ✅ | ✅ (Cobra's stock boilerplate — bash/zsh/fish/PowerShell) |
 
 ## What flaglint-go Does
 

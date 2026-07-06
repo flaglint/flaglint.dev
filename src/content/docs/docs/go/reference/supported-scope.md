@@ -39,11 +39,11 @@ flaglint-go proves client identity syntactically (no `go/types`, no build requir
 | Chained factory-call-then-method (`pkg.GetLdClient().Method(...)`, no intermediate variable) | **No** — [tracked](https://github.com/flaglint/flaglint-go/issues/20) |
 | Method values (`f := client.BoolVariation; f(...)`) | No — [tracked](https://github.com/flaglint/flaglint-go/issues/6) |
 | Interface satisfaction (client known only through an interface type) | No — [tracked](https://github.com/flaglint/flaglint-go/issues/15) |
-| Block-scoped variable shadowing within one function | No — [tracked](https://github.com/flaglint/flaglint-go/issues/5) |
+| Block-scoped variable shadowing within one function | No — can cause a false positive, see below — [tracked](https://github.com/flaglint/flaglint-go/issues/5) |
 | A factory function returning a wrapper type (not `*ld.LDClient` itself) | No — [tracked](https://github.com/flaglint/flaglint-go/issues/16) |
 | Nested `go.mod` files within one scanned tree (monorepo submodules) | Partial — [tracked](https://github.com/flaglint/flaglint-go/issues/17) |
 
-Every "No" above is a documented false-negative risk, never a false-positive one — flaglint-go's non-negotiable rule is to under-detect rather than guess. See [Limitations](/docs/go/reference/limitations/).
+Every "No" above is a false-negative risk except one: block-scoped shadowing (issue #5) can cause a genuine false positive — a variable re-`:=`'d to an unrelated value inside a nested block is still treated as the outer real client. Every other gap fails safe (a missed detection, never a false positive) — flaglint-go's non-negotiable rule is to under-detect rather than guess everywhere else. See [Limitations](/docs/go/reference/limitations/).
 
 ## Feedback
 

@@ -17,11 +17,11 @@ flaglint-go proves client identity from syntax alone — no build, no `go/types`
 - **Chained factory-call-then-method** (`pkg.GetLdClient().Method(...)` with no intermediate variable) — [issue #20](https://github.com/flaglint/flaglint-go/issues/20)
 - **Method values** (`f := client.BoolVariation; f(...)`) — [issue #6](https://github.com/flaglint/flaglint-go/issues/6)
 - **Interface satisfaction** (a client known only through an interface type) — [issue #15](https://github.com/flaglint/flaglint-go/issues/15)
-- **Block-scoped variable shadowing** within a single function — [issue #5](https://github.com/flaglint/flaglint-go/issues/5)
+- **Block-scoped variable shadowing** within a single function — [issue #5](https://github.com/flaglint/flaglint-go/issues/5). Unlike every other gap below, this one **can cause a false positive**: a variable re-`:=`'d to an unrelated value inside a nested block is still treated as the outer real client.
 - **A factory function returning a wrapper type**, not `*ld.LDClient` itself — [issue #16](https://github.com/flaglint/flaglint-go/issues/16)
 - **Nested `go.mod` files** within one scanned tree (monorepo submodules) — [issue #17](https://github.com/flaglint/flaglint-go/issues/17)
 
-Every one of these fails safe: a missed detection, never a false positive. See [Identity Model](/docs/go/concepts/identity-model/) and [ADR 004](https://github.com/flaglint/flaglint-go/blob/main/docs/adr/004-whole-scan-identity-resolution.md) for the full design and reasoning behind each.
+Every gap above fails safe (a missed detection, never a false positive) except block-scoped shadowing, noted above. See [Identity Model](/docs/go/concepts/identity-model/) and [ADR 004](https://github.com/flaglint/flaglint-go/blob/main/docs/adr/004-whole-scan-identity-resolution.md) for the full design and reasoning behind each.
 
 ## Not Production Staleness Analysis
 
