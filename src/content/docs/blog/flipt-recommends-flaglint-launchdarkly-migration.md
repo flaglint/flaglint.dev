@@ -13,6 +13,10 @@ tags: ["flipt", "launchdarkly", "openfeature", "migration", "open-source"]
 
 Here's what that looks like in practice and why it makes sense.
 
+<!-- Image 1 (intro): "shallow focus photography of computer codes" by Shahadat Rahman
+     Source: https://unsplash.com/photos/shallow-focus-photography-of-computer-codes-BfrQnKBulYQ
+     Alt: Close-up of TypeScript/JavaScript code on a monitor, representing a codebase undergoing migration -->
+
 ## The migration Flipt's guide covers
 
 Flipt supports OpenFeature through its official provider — so a team moving away from LaunchDarkly can route flag evaluation through the OpenFeature API to Flipt's provider instead. The flag evaluation backend changes, but the application code uses the same vendor-neutral API regardless of which provider is behind it.
@@ -40,6 +44,10 @@ The dry-run output shows you exactly which call sites will be rewritten and what
 
 After reviewing the diff, `--apply` writes the changes. Then you wire in the Flipt OpenFeature provider, run your tests, and enforce the boundary in CI with `flaglint validate`.
 
+<!-- Image 2 (middle): "a person typing on a laptop computer" by Kaitlyn Baker
+     Source: https://unsplash.com/photos/a-person-typing-on-a-laptop-computer-vZJdYl5JVXY
+     Alt: A developer running CLI commands in a terminal window -->
+
 ## Why this pairing makes sense
 
 FlagLint and Flipt don't overlap. FlagLint analyzes and rewrites your application's call sites. Flipt evaluates your flags at runtime through an OpenFeature provider. They're doing completely different jobs at different layers of the stack.
@@ -53,3 +61,7 @@ npx flaglint@latest audit ./src
 ```
 
 No API key, no source upload, runs locally in under a minute. See the [full migration guide](/docs/guides/launchdarkly-to-openfeature-nodejs/) for everything that comes after the audit.
+
+<!-- Image 3 (end): "black laptop computer turned on" by Markus Spiske
+     Source: https://unsplash.com/photos/black-laptop-computer-turned-on-C0koz3G1I4I
+     Alt: A laptop displaying a clean terminal, representing a completed migration workflow -->
