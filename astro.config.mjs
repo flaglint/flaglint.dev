@@ -50,7 +50,22 @@ export default defineConfig({
           ],
         },
         {
-          label: "CLI",
+          label: "Go CLI",
+          collapsed: true,
+          items: [
+            { label: "Overview", slug: "docs/go" },
+            { label: "Quickstart", slug: "docs/go/quickstart" },
+            { label: "scan", slug: "docs/go/cli/scan" },
+            { label: "audit", slug: "docs/go/cli/audit" },
+            { label: "validate", slug: "docs/go/cli/validate" },
+            { label: "Identity Model", slug: "docs/go/concepts/identity-model" },
+            { label: "Enforce in CI", slug: "docs/go/guides/enforce-in-ci" },
+            { label: "Supported Scope", slug: "docs/go/reference/supported-scope" },
+            { label: "Limitations", slug: "docs/go/reference/limitations" },
+          ],
+        },
+        {
+          label: "Node CLI",
           collapsed: true,
           items: [
             { label: "init", slug: "docs/cli/init" },
@@ -114,21 +129,6 @@ export default defineConfig({
           items: [
             { label: "GitHub Actions", slug: "docs/integrations/github-actions" },
             { label: "OpenTelemetry", slug: "docs/integrations/opentelemetry" },
-          ],
-        },
-        {
-          label: "Go CLI",
-          collapsed: true,
-          items: [
-            { label: "Overview", slug: "docs/go" },
-            { label: "Quickstart", slug: "docs/go/quickstart" },
-            { label: "scan", slug: "docs/go/cli/scan" },
-            { label: "audit", slug: "docs/go/cli/audit" },
-            { label: "validate", slug: "docs/go/cli/validate" },
-            { label: "Identity Model", slug: "docs/go/concepts/identity-model" },
-            { label: "Enforce in CI", slug: "docs/go/guides/enforce-in-ci" },
-            { label: "Supported Scope", slug: "docs/go/reference/supported-scope" },
-            { label: "Limitations", slug: "docs/go/reference/limitations" },
           ],
         },
         {
