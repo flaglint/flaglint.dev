@@ -75,8 +75,12 @@ v1.0.0 is the CI-readiness release. The core scanner and migrator are stable. Th
 - **ADR 005 — Cleanup command** (DEFERRED) — documents the safe path for
   automated branch removal via `--assume`/`--flag-values`; deferred until
   `--assume` mechanism is designed.
-- **ADR 006 — Go language support** (PROPOSED) — tree-sitter-go parser design,
-  import tracing for `go-server-sdk`, go.mod boundary handling, 6-phase plan.
+- **ADR 006 — Go language support** (PROPOSED, later superseded) —
+  tree-sitter-go parser design, import tracing for `go-server-sdk`, go.mod
+  boundary handling, 6-phase plan. Go support ultimately shipped as a
+  separate project, [flaglint-go](https://github.com/flaglint/flaglint-go),
+  built around Go's native `go/parser`/`go/ast` instead of tree-sitter — see
+  [flaglint-go's docs](/docs/go/).
 
 ### Fixed
 

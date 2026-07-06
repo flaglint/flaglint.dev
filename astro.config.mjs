@@ -117,6 +117,20 @@ export default defineConfig({
           ],
         },
         {
+          label: "Go CLI",
+          collapsed: true,
+          items: [
+            { label: "Overview", slug: "docs/go" },
+            { label: "Quickstart", slug: "docs/go/quickstart" },
+            { label: "scan", slug: "docs/go/cli/scan" },
+            { label: "audit", slug: "docs/go/cli/audit" },
+            { label: "validate", slug: "docs/go/cli/validate" },
+            { label: "Identity Model", slug: "docs/go/concepts/identity-model" },
+            { label: "Supported Scope", slug: "docs/go/reference/supported-scope" },
+            { label: "Limitations", slug: "docs/go/reference/limitations" },
+          ],
+        },
+        {
           label: "Trust",
           collapsed: true,
           items: [

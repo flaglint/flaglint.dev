@@ -1,8 +1,10 @@
 ---
 title: Safety Model
 description: What FlagLint auto-rewrites, what it skips, and why the safety-over-coverage principle guides every pattern.
-lastUpdated: 2026-06-22
+lastUpdated: 2026-07-06
 ---
+
+This page covers **flaglint-js**'s `migrate --apply` rewrite safety model, which is specific to the JavaScript/TypeScript CLI — flaglint-go does not have an automated migration/rewrite command (audit, scan, and validate only). See [flaglint-go's concepts docs](/docs/go/concepts/identity-model/) for the Go CLI's own safety guarantees.
 
 FlagLint is conservative by design. It separates inventory, review, and source edits so teams can inspect every migration change before it lands in production.
 
@@ -45,7 +47,8 @@ When every condition is met, FlagLint produces an idempotent, argument-order-cor
 | **Wrappers not configured in `.flaglintrc`** | FlagLint cannot distinguish a custom wrapper from an unrelated function unless it is explicitly declared | Add wrapper declarations to `wrappers: []` in `.flaglintrc`, then re-run |
 | **Ambiguous fallback types** — e.g. `null`, a variable, or a union-typed expression | FlagLint cannot determine which `get*Value` method to use without a concrete literal type | Replace the fallback with an explicit literal (`false`, `""`, `0`, `{}`) at the call site |
 | **Non-LaunchDarkly providers** | FlagLint is a LaunchDarkly-specific static analysis tool | No action; these calls are reported in the inventory but never touched |
-| **Non-Node.js SDKs** — browser SDK, Go SDK, Java SDK | Only the Node.js server-side SDK import provenance is verified | Migrate browser and other-language calls manually |
+| **Non-Node.js SDKs** — browser SDK, Java SDK | Only the Node.js server-side SDK import provenance is verified | Migrate browser and other-language calls manually |
+| **Go SDK** | flaglint-js only verifies the Node.js server-side SDK import — Go usage is out of scope for this tool entirely | Use [flaglint-go](/docs/go/) to audit Go usage; it has no `--apply`-style rewrite yet, only `scan`/`audit`/`validate` |
 
 ## Why Fallback Value Does Not Equal Production Value
 
