@@ -184,11 +184,11 @@ unsafe. These require human judgment:
 | Pattern | Why it's skipped | What to do |
 |---------|-----------------|------------|
 | Dynamic keys | `ldClient.boolVariation(getFlagKey(user), ...)` — key isn't a literal | Refactor to extract the key as a static constant |
-| Detail evaluations | `boolVariationDetail`, `variationDetail` — OpenFeature has no direct equivalent | Use `getBooleanValue` + handle the default separately |
+| Detail evaluations | `boolVariationDetail`, `variationDetail` — returns value + reason/metadata | Use `openFeatureClient.getBooleanDetails()` to get both value and reason |
 | Bulk calls | `allFlags()`, `allFlagsState()` — no OpenFeature equivalent | Evaluate each flag individually or keep the LD call isolated |
-| Ambiguous binding | Multiple OpenFeature clients in scope | Annotate which client to use with `flaglint-client:` comment |
+| Ambiguous binding | Multiple OpenFeature clients in scope | Refactor to a shared singleton so only one client variable is in scope |
 
-For most Node.js services, the manual cases are fewer than 20% of call sites.
+In practice, dynamic keys and detail evaluations account for most skips.
 The [five patterns post](/blog/five-patterns-that-block-migration/) covers each
 one in detail.
 
