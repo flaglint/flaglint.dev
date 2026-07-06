@@ -17,10 +17,20 @@ flaglint-go has no published GitHub Action (unlike flaglint-js's `flaglint/flagl
 - run: go install github.com/flaglint/flaglint-go/cmd/flaglint-go@latest
 ```
 
-**Via Homebrew** (no Go toolchain needed — `brew` is preinstalled on GitHub-hosted `ubuntu-latest` and `macos-latest` runners):
+This is the option used in the full workflow examples below — it works the same way on every GitHub-hosted runner OS.
+
+**Via Homebrew** — on `macos-latest`, `brew` is already on `PATH`:
 
 ```yaml
 - run: brew install flaglint/tap/flaglint-go
+```
+
+On `ubuntu-latest`, Homebrew is preinstalled but **not** added to `PATH` by default — initialize it first:
+
+```yaml
+- run: |
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+    brew install flaglint/tap/flaglint-go
 ```
 
 ## Recommended: Adopt With a Baseline First
