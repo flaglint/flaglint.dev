@@ -1,7 +1,7 @@
 ---
 title: flaglint-go audit
 description: Risk-ranked LaunchDarkly Go SDK usage report with a migration-readiness score.
-lastUpdated: 2026-07-06
+lastUpdated: 2026-07-08
 ---
 
 `flaglint-go audit` scans your source and classifies every detected LaunchDarkly Go SDK call by risk level, producing a migration-readiness score. It never modifies files.
@@ -20,6 +20,7 @@ flaglint-go audit [dir] [flags]
 | `-o, --output string` | Write report to a file instead of stdout |
 | `--config string` | Path to config file |
 | `--write-baseline string` | Write current finding fingerprints to a baseline file for use with `validate --baseline --fail-on-new` |
+| `--strict-types` | Additionally resolve findings only provable with real `go/types` information (interface satisfaction, transitive factory wrapping, cross-function method-value forwarding). Requires the module to build. See [Identity Model](/docs/go/concepts/identity-model/). |
 
 ## Risk Levels
 
@@ -62,14 +63,21 @@ flaglint-go audit ./services --write-baseline .flaglint-baseline.json
 ```json
 {
   "version": "1",
-  "createdAt": "2026-07-06T19:23:09Z",
+  "schemaVersion": "baseline.v1",
+  "createdAt": "2026-07-08T19:23:09Z",
   "flaglintVersion": "dev",
   "fingerprints": [
     "launchdarkly:BoolVariation:checkout-v2:checkout.go",
     "launchdarkly:IntVariation:discount-percentage:checkout.go"
-  ]
+  ],
+  "counts": {
+    "launchdarkly:BoolVariation:checkout-v2:checkout.go": 1,
+    "launchdarkly:IntVariation:discount-percentage:checkout.go": 1
+  }
 }
 ```
+
+`counts` records each fingerprint's occurrence count, not just which fingerprints are known — so `validate --fail-on-new` also catches a brand-new *duplicate* of an already-baselined call, not only a brand-new fingerprint. See [validate: Baseline Mode](/docs/go/cli/validate/#baseline-mode).
 
 Commit this file to source control, then use it with `flaglint-go validate --baseline <file> --fail-on-new` to adopt CI enforcement without requiring all existing debt to be fixed first. See [Quickstart: Adopt Gradually With a Baseline](/docs/go/quickstart/#4-adopt-gradually-with-a-baseline).
 

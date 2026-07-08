@@ -1,7 +1,7 @@
 ---
 title: flaglint-go scan
 description: Structured, file-level LaunchDarkly Go SDK usage inventory. Always exits 0.
-lastUpdated: 2026-07-06
+lastUpdated: 2026-07-08
 ---
 
 `flaglint-go scan` walks a directory and reports every detected LaunchDarkly Go SDK call site as a structured inventory — no risk scoring, no readiness score, just the raw findings. Use `audit` instead when you want a risk-ranked summary.
@@ -19,6 +19,7 @@ flaglint-go scan [dir] [flags]
 | `-f, --format string` | Output format: `json` \| `markdown` (default `markdown`) |
 | `-o, --output string` | Write report to a file instead of stdout |
 | `--config string` | Path to config file |
+| `--strict-types` | Additionally resolve findings only provable with real `go/types` information (interface satisfaction, transitive factory wrapping, cross-function method-value forwarding). Requires the module to build. See [Identity Model](/docs/go/concepts/identity-model/). |
 
 ## Example Output (Markdown)
 

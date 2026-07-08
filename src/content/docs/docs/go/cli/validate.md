@@ -1,7 +1,7 @@
 ---
 title: flaglint-go validate
 description: Enforce a no-direct-LaunchDarkly policy, baseline-aware CI enforcement, and SARIF findings for Go.
-lastUpdated: 2026-07-06
+lastUpdated: 2026-07-08
 ---
 
 `flaglint-go validate` checks whether a Go codebase complies with a flag-usage policy. It's the only flaglint-go command that ever exits `1`.
@@ -17,6 +17,7 @@ lastUpdated: 2026-07-06
 | `--config string` | Path to config file |
 | `--baseline string` | Baseline file for comparing against known debt |
 | `--fail-on-new` | Exit `1` if any findings are not in the baseline |
+| `--strict-types` | Additionally resolve findings only provable with real `go/types` information (interface satisfaction, transitive factory wrapping, cross-function method-value forwarding). Requires the module to build. See [Identity Model](/docs/go/concepts/identity-model/). |
 
 ## Blocking Policy Command
 
@@ -63,6 +64,16 @@ Error: 1 new finding(s) not in baseline:
 ```
 
 Re-run `--write-baseline` whenever you accept new debt on purpose.
+
+A baseline also tracks each finding's *occurrence count*, not just which fingerprints are known — so a brand-new **duplicate** of an already-baselined call (copy-pasted into the same file) is caught too, even though its fingerprint is already in the baseline:
+
+```text
+Scanned 2 file(s). Found 3 LaunchDarkly Go SDK usage(s).
+Error: 1 new finding(s) not in baseline:
+  - launchdarkly:BoolVariation:checkout-v2:checkout.go
+```
+
+A baseline written by an older version of flaglint-go (or by flaglint-js, which doesn't have this extension yet) works the same as always — falling back to plain fingerprint-set comparison when a baseline has no occurrence counts recorded.
 
 ## SARIF
 
