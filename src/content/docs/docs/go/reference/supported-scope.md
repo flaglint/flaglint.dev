@@ -1,7 +1,7 @@
 ---
 title: flaglint-go Supported Scope
 description: What flaglint-go detects, reports, and excludes.
-lastUpdated: 2026-07-06
+lastUpdated: 2026-07-08
 ---
 
 This page covers **flaglint-go**, the Go CLI. For the JavaScript/TypeScript CLI's scope, see [flaglint-js: Supported Scope](/docs/reference/supported-scope/).
@@ -26,24 +26,33 @@ flaglint-go detects LaunchDarkly Go server-side SDK evaluation calls from:
 
 ## Identity Resolution Coverage
 
-flaglint-go proves client identity syntactically (no `go/types`, no build required) across an entire scan. See [Identity Model](/docs/go/concepts/identity-model/) for detail on each of these:
+flaglint-go proves client identity in two layers. Phase 1 (the default `audit`/`scan`/`validate` behavior, always on) resolves purely from syntax — no `go/types`, no build required. An opt-in `--strict-types` pass (Phase 2) additionally resolves a small number of patterns pure syntax structurally can't. See [Identity Model](/docs/go/concepts/identity-model/) for the full split and detail on each of these.
+
+### Phase 1 — default, no build required
 
 | Pattern | Resolved |
 | --- | --- |
 | Direct constructor binding (`x := ld.MakeClient(...)`) | Yes |
 | Package-level `var` and struct-field assignment | Yes — across the whole scan, not just one file |
-| Composite-literal struct-field binding (`&Integration{ldClient: client}`) | Yes |
+| Composite-literal struct-field binding (`&Integration{ldClient: client}`) | Yes — including a literal that directly initializes a package-level `var`, never inside any function body |
 | Multi-level field-selector chains (`f.integ.ldClient.Method(...)`), including generic structs | Yes |
 | Cross-package factory/getter functions (`pkg.GetLdClient()`) | Yes — requires a `go.mod` to compute real import paths |
 | Parameter-typed client bindings (`func f(client *ld.LDClient)`) | Yes |
-| Chained factory-call-then-method (`pkg.GetLdClient().Method(...)`, no intermediate variable) | **No** — [tracked](https://github.com/flaglint/flaglint-go/issues/20) |
-| Method values (`f := client.BoolVariation; f(...)`) | No — [tracked](https://github.com/flaglint/flaglint-go/issues/6) |
-| Interface satisfaction (client known only through an interface type) | No — [tracked](https://github.com/flaglint/flaglint-go/issues/15) |
-| Block-scoped variable shadowing within one function | No — can cause a false positive, see below — [tracked](https://github.com/flaglint/flaglint-go/issues/5) |
-| A factory function returning a wrapper type (not `*ld.LDClient` itself) | No — [tracked](https://github.com/flaglint/flaglint-go/issues/16) |
-| Nested `go.mod` files within one scanned tree (monorepo submodules) | Partial — [tracked](https://github.com/flaglint/flaglint-go/issues/17) |
+| A struct field declared `*ld.LDClient`, with no observed construction anywhere in the scanned tree | Yes — the field's declared type alone is sufficient proof, the dominant Go dependency-injection pattern |
+| Chained factory-call-then-method (`pkg.GetLdClient().Method(...)`, no intermediate variable) | Yes |
+| Method values within one function (`f := client.BoolVariation; f(...)`) | Yes |
+| Block-scoped variable shadowing within one function | Yes — no longer a false-positive risk |
+| Nested `go.mod` files within one scanned tree (monorepo submodules) | Yes |
 
-Every "No" above is a false-negative risk except one: block-scoped shadowing (issue #5) can cause a genuine false positive — a variable re-`:=`'d to an unrelated value inside a nested block is still treated as the outer real client. Every other gap fails safe (a missed detection, never a false positive) — flaglint-go's non-negotiable rule is to under-detect rather than guess everywhere else. See [Limitations](/docs/go/reference/limitations/).
+### Phase 2 — `--strict-types` (opt-in, requires the module to build)
+
+| Pattern | Resolved |
+| --- | --- |
+| Interface satisfaction (client known only through an interface type) | Yes |
+| A factory function returning a wrapper type (not `*ld.LDClient` itself) | Yes |
+| A method value passed as an argument into a *different* function (the "forwarding function" pattern) | Yes |
+
+Every pattern above fails safe when it can't be resolved (a missed detection, never a false positive) — flaglint-go's non-negotiable rule is to under-detect rather than guess. See [Limitations](/docs/go/reference/limitations/) for anything currently outside detection coverage.
 
 ## Feedback
 

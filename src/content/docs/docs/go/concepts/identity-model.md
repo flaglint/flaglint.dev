@@ -1,7 +1,7 @@
 ---
 title: flaglint-go Identity Model
 description: How flaglint-go proves a variable is a LaunchDarkly client — never by name, and across the whole scan, not just one file.
-lastUpdated: 2026-07-06
+lastUpdated: 2026-07-08
 ---
 
 flaglint-go's core rule, inherited from flaglint-js: a variable is only treated as a LaunchDarkly client when its identity can be **proven** — never by matching a method or variable name in isolation.
@@ -68,9 +68,68 @@ func useClient(client *ld.LDClient) {
 }
 ```
 
+**Struct fields declared `*ld.LDClient`, with no observed construction anywhere in the scanned tree** — the dominant Go dependency-injection pattern: the client is wired into the struct by an external framework or a constructor not included in what's actually scanned. The field's declared type alone is sufficient proof, the same "trust the signature" principle as parameter-typed bindings above, just applied to a struct field instead:
+```go
+type FlagService struct {
+	ld *ld.LDClient
+}
+
+func (s *FlagService) DarkMode(userID string) bool {
+	v, _ := s.ld.BoolVariation("dark-mode", ldcontext.New(userID), false) // bound from the field's declared type alone
+	return v
+}
+```
+
+**Composite literals directly initializing a package-level `var`**, never inside any function body:
+```go
+var svcClient, _ = ld.MakeClient("sdk-key", 5*time.Second)
+var svc = &Svc{Client: svcClient} // never inside a function — resolved at the package level
+
+func NewUI(userID string) bool {
+	v, _ := svc.Client.BoolVariation("new-ui", ldcontext.New(userID), false)
+	return v
+}
+```
+
+## Phase 2 — `--strict-types`
+
+Phase 1's syntactic tracing is structurally unable to prove a small number of patterns — they need real type information, not just syntax. An opt-in `--strict-types` pass loads the target module with real `go/types` information (via `golang.org/x/tools/go/packages`) and uses it to resolve these additionally. This pass is strictly *additive*: it can only add findings Phase 1 missed, never remove or contradict one Phase 1 already made. Phase 1 remains the default — `flaglint-go audit` continues to work unconditionally, with no build required; `--strict-types` requires the scanned module to actually build.
+
+**Interface satisfaction** — a client known only through an interface type, not the concrete `*ld.LDClient` type itself:
+```go
+type FlagEvaluator interface {
+	BoolVariation(key string, ctx ldcontext.Context, defaultVal bool) (bool, error)
+}
+
+func useEvaluator(e FlagEvaluator) {
+	e.BoolVariation("my-flag", nil, false) // e's declared type is an interface, not *ld.LDClient —
+	                                          // requires go/types to confirm *ld.LDClient satisfies it
+}
+```
+
+**A factory function returning a wrapper type**, not `*ld.LDClient` itself (transitive factory wrapping):
+```go
+func NewClientWrapper() *ClientWrapper { /* constructs and wraps a real client */ }
+
+wrapper := NewClientWrapper()
+wrapper.inner.BoolVariation("my-flag", nil, false)
+```
+
+**A method value passed as an argument into a *different* function** (the "forwarding function" pattern) — the harder remainder beyond the same-function method-value case Phase 1 already resolves:
+```go
+func callDirect(f func(string, ldcontext.Context, bool) (bool, error), key string, def bool) bool {
+	v, _ := f(key, nil, def)
+	return v
+}
+
+func useDirect(client *ld.LDClient) {
+	_ = callDirect(client.BoolVariation, "forwarding-flag", false) // method value crosses a function boundary
+}
+```
+
 ## What stays out of scope
 
-Identity resolution is deliberately conservative — flaglint-go prefers a missed detection (false negative) over a false positive. Patterns not resolved without real type information (`go/types`) are documented, not silently guessed at. See [Limitations](/docs/go/reference/limitations/) for the current list.
+Identity resolution is deliberately conservative — flaglint-go prefers a missed detection (false negative) over a false positive. Patterns not resolved by either Phase 1 or `--strict-types` are documented, not silently guessed at. See [Limitations](/docs/go/reference/limitations/) for the current list.
 
 ## Dynamic Key Detection
 
